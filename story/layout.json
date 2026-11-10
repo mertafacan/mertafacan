@@ -1,0 +1,27 @@
+{
+  "_doc": "Shared by scene.py (Blender) and timeline.js. Coordinates are Y-up metres (three.js convention). Blender gets (x, -z, y).",
+  "ppm": 526.3157894736842,
+  "lab": {
+    "room": { "x0": -5, "x1": 5, "z0": -4, "z1": 4, "h": 3.6 },
+    "bench": { "x0": -3.0, "x1": 1.4, "z0": -2.025, "z1": -1.075, "top": 0.99 },
+    "george": [-0.8, 0, -2.55],
+    "friend": [2.1, 0, -0.9],
+    "beaker": [-0.25, 0.99, -1.55],
+    "tray": [-1.75, 0.99, -1.55],
+    "acid": [0.55, 0.99, -1.55],
+    "shelf": { "x": 4.62, "tierY": [0.38, 1.08, 1.78, 2.48], "z0": -3.5, "z1": 3.0, "hero": [4.6, 1.11, -0.4] },
+    "junk": { "drawer": [-4.1, 0.84, -0.5], "cabinet": [-4.6, 0.45, -0.5] },
+    "door": { "hinge": [3.25, 0, -3.9], "pos": [3.9, 0, -3.9] },
+    "table": [3.2, 0, 0.85],
+    "calendar": [-0.14, 1.85, -3.86]
+  },
+  "street": {
+    "origin": [40, 0, 0],
+    "institute": [40, 0, -13],
+    "signpost": [35.9, 0, 3.2]
+  },
+  "ambient": {
+    "lab": { "sky": "#ffe2b4", "ground": "#8a8fd0", "intensity": 1.15 },
+    "street": { "sky": "#cfe8ff", "ground": "#e0b98a", "intensity": 1.15 }
+  }
+}

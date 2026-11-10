@@ -1,0 +1,10 @@
+import { createRequire } from 'node:module'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
+const require = createRequire(import.meta.url); const { chromium } = require('playwright');
+import { serve } from './server.mjs';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const { server, port } = await serve(root);
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1600, height: 1000 } });
+p.on('console', m => console.log('page:', m.text())); p.on('pageerror', e => console.log('ERR', e.message));
+await p.goto(`http://127.0.0.1:${port}/sheet.html`); await p.waitForFunction('window.done');
+await (await p.$('#c')).screenshot({ path: path.join(root, 'out', 'character_sheet.png') });
+await b.close(); server.close();

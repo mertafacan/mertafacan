@@ -1,0 +1,127 @@
+{
+ "fps": 30,
+ "duration": 59.4,
+ "frames": 1782,
+ "shots": [
+  {
+   "name": "hook",
+   "t0": 0,
+   "set": "lab"
+  },
+  {
+   "name": "street_sign",
+   "t0": 4.637,
+   "set": "street"
+  },
+  {
+   "name": "street_wide",
+   "t0": 6.65,
+   "set": "street"
+  },
+  {
+   "name": "tray",
+   "t0": 9.39,
+   "set": "lab"
+  },
+  {
+   "name": "acid",
+   "t0": 12.78,
+   "set": "lab"
+  },
+  {
+   "name": "friend",
+   "t0": 15.44,
+   "set": "lab"
+  },
+  {
+   "name": "mocker_closeup",
+   "t0": 18.08,
+   "set": "lab"
+  },
+  {
+   "name": "beaker_insert",
+   "t0": 20.54,
+   "set": "lab"
+  },
+  {
+   "name": "beaker_reveal",
+   "t0": 23.62,
+   "set": "lab"
+  },
+  {
+   "name": "shelf_wide",
+   "t0": 26.2,
+   "set": "lab"
+  },
+  {
+   "name": "label_insert",
+   "t0": 29.52,
+   "set": "lab"
+  },
+  {
+   "name": "soldiers_enter",
+   "t0": 31.8,
+   "set": "lab"
+  },
+  {
+   "name": "search_drawers",
+   "t0": 33.58,
+   "set": "lab"
+  },
+  {
+   "name": "search_table",
+   "t0": 35.36,
+   "set": "lab"
+  },
+  {
+   "name": "junk_george",
+   "t0": 36.96,
+   "set": "lab"
+  },
+  {
+   "name": "junk_macro",
+   "t0": 39.86,
+   "set": "lab"
+  },
+  {
+   "name": "shelf_all_junk",
+   "t0": 42.12,
+   "set": "lab"
+  },
+  {
+   "name": "past_jar",
+   "t0": 43.57,
+   "set": "lab"
+  },
+  {
+   "name": "never_touched",
+   "t0": 46.22,
+   "set": "lab"
+  },
+  {
+   "name": "calendar",
+   "t0": 47.58,
+   "set": "lab"
+  },
+  {
+   "name": "gold_back",
+   "t0": 49.14,
+   "set": "lab"
+  },
+  {
+   "name": "medals_again",
+   "t0": 52.12,
+   "set": "lab"
+  },
+  {
+   "name": "callback",
+   "t0": 53.5,
+   "set": "lab"
+  },
+  {
+   "name": "reveal",
+   "t0": 56.7,
+   "set": "lab"
+  }
+ ]
+}

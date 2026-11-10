@@ -1,0 +1,167 @@
+<!doctype html><meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const LAYOUT = await (await fetch('/layout.json')).json();
+const params = new URLSearchParams(location.search);
+const WIDTH = +(params.get('w') || 1080), HEIGHT = +(params.get('h') || 1920);
+const PPM = LAYOUT.ppm, CW = 640, CH = 1100, FEET_FROM_BOTTOM = 45; // see chars.js
+const K_POINT = +(params.get('kp') || 22), K_SUN = +(params.get('ks') || 1.3), EXPOSURE = Math.pow(2, -0.3);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(1); renderer.setSize(WIDTH, HEIGHT);
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.NoToneMapping; // Standard view transform
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, WIDTH / HEIGHT, 0.05, 400);
+
+// ------------------------------------------------------------ toon look
+const gradient = (() => { const d = new Uint8Array([105, 105, 105, 255, 160, 160, 160, 255, 215, 215, 215, 255, 255, 255, 255, 255]); const t = new THREE.DataTexture(d, 4, 1, THREE.RGBAFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+const INK = new THREE.Color('#2a1a2e');
+const toonCache = new Map();
+function toonOf(m) {
+  if (m.name === 'Ink') { return new THREE.MeshBasicMaterial({ color: INK, side: THREE.FrontSide, fog: true }); }
+  const t = new THREE.MeshToonMaterial({ color: m.color.clone(), map: m.map, gradientMap: gradient, emissive: m.emissive.clone(), emissiveMap: m.emissiveMap, emissiveIntensity: m.emissiveIntensity,
+    transparent: m.transparent, opacity: m.opacity, side: m.side, alphaTest: m.alphaTest });
+  if (m.map) m.map.colorSpace = THREE.SRGBColorSpace; if (m.emissiveMap) m.emissiveMap.colorSpace = THREE.SRGBColorSpace;
+  if (/^(skydome|cloudm)/.test(m.name)) t.fog = false;
+  t.name = m.name; t.userData.base = { metal: m.metalness, rough: m.roughness }; return t;
+}
+
+const gltf = await new GLTFLoader().loadAsync('/data/scene.glb');
+const world = gltf.scene; scene.add(world);
+const lightDefs = [], nodes = {};
+world.traverse(o => {
+  if (o.name) nodes[o.name] = o;
+  if (o.isLight) { lightDefs.push(o); }
+  if (o.isMesh) {
+    const mats = Array.isArray(o.material) ? o.material : [o.material];
+    const out = mats.map(m => { if (!toonCache.has(m)) toonCache.set(m, toonOf(m)); return toonCache.get(m); });
+    o.material = Array.isArray(o.material) ? out : out[0];
+    const ink = out.some(m => m.type === 'MeshBasicMaterial');
+    o.castShadow = !ink; o.receiveShadow = !ink; o.userData.ink = ink;
+    if (ink) { o.castShadow = false; o.receiveShadow = false; }
+  }
+});
+// own lights (Blender light data, intensities authored in scene.py); the loader's lights are removed
+const lights = { lab: [], street: [] };
+for (const L of lightDefs) {
+  const u = L.userData || {}; const set = u.set || 'lab';
+  const col = new THREE.Color(u.color || '#ffffff');
+  let l;
+  const wp = L.getWorldPosition(new THREE.Vector3());
+  if (u.kind === 'SUN') {
+    l = new THREE.DirectionalLight(col, u.intensity * K_SUN * EXPOSURE);
+    l.position.copy(wp); const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(L.getWorldQuaternion(new THREE.Quaternion()));
+    l.target.position.copy(wp).add(dir.multiplyScalar(60)); scene.add(l.target);
+    l.castShadow = true; l.shadow.mapSize.set(2048, 2048); const sc = l.shadow.camera; sc.left = -26; sc.right = 26; sc.top = 26; sc.bottom = -26; sc.near = 1; sc.far = 140; l.shadow.bias = -0.0006; l.shadow.normalBias = 0.04;
+  } else {
+    l = new THREE.PointLight(col, u.intensity * K_POINT * EXPOSURE, u.dist || 0, u.decay || 2); l.position.copy(wp);
+    if (u.shadow) { l.castShadow = true; l.shadow.mapSize.set(1024, 1024); l.shadow.bias = -0.002; l.shadow.normalBias = 0.03; l.shadow.camera.near = 0.2; l.shadow.camera.far = 20; }
+  }
+  scene.add(l); lights[set].push(l); L.visible = false;
+}
+const hemis = {};
+for (const s of ['lab', 'street']) { const a = LAYOUT.ambient[s]; hemis[s] = new THREE.HemisphereLight(a.sky, a.ground, a.intensity * EXPOSURE * 2.2); scene.add(hemis[s]); }
+const fogs = { lab: null, street: new THREE.Fog('#fbe6c4', 55, 150) };
+function useSet(s) { for (const k of ['lab', 'street']) { lights[k].forEach(l => l.visible = k === s); hemis[k].visible = k === s; } scene.fog = fogs[s]; scene.background = new THREE.Color(s === 'street' ? '#bfe3ff' : '#2a1f3a'); }
+useSet('lab');
+
+// ------------------------------------------------------------ cards (2D characters on camera-facing planes) + blob shadow
+const texLoader = new THREE.TextureLoader(); const cardTex = new Map();
+function getTex(name) { return cardTex.get(name); }
+window.preload = async (names) => { await Promise.all(names.filter(n => !cardTex.has(n)).map(async n => { const t = await texLoader.loadAsync(`/data/cards/${n}.webp`); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; cardTex.set(n, t); })); };
+const cardPool = [];
+const blobTex = await texLoader.loadAsync('/data/textures/blob.png'); blobTex.colorSpace = THREE.SRGBColorSpace;
+function getCard(i) {
+  if (!cardPool[i]) {
+    const g = new THREE.PlaneGeometry(CW / PPM, CH / PPM);
+    const m = new THREE.MeshBasicMaterial({ transparent: true, alphaTest: 0.35, depthWrite: true, fog: false });
+    m.alphaToCoverage = true;
+    const mesh = new THREE.Mesh(g, m); mesh.position.y = (CH / 2 - FEET_FROM_BOTTOM) / PPM;
+    const grp = new THREE.Group(); grp.add(mesh);
+    const sh = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.55), new THREE.MeshBasicMaterial({ map: blobTex, transparent: true, depthWrite: false, fog: false })); sh.rotation.x = -Math.PI / 2; sh.position.y = 0.012; grp.add(sh);
+    grp.userData = { mesh, sh }; scene.add(grp); cardPool[i] = grp;
+  }
+  return cardPool[i];
+}
+
+// ------------------------------------------------------------ prop animation + particles
+const home = {}; for (const k in nodes) home[k] = { p: nodes[k].position.clone(), q: nodes[k].quaternion.clone(), s: nodes[k].scale.clone(), v: nodes[k].visible };
+function liquidMats(name) { const out = []; nodes[name]?.traverse(o => { if (o.isMesh && !o.userData.ink) out.push(o.material); }); return out; }
+const bubbleGeo = new THREE.SphereGeometry(0.018, 8, 6), bubbleMat = new THREE.MeshBasicMaterial({ color: '#ffe9b0', transparent: true, opacity: 0.85 });
+const sparkMat = new THREE.MeshBasicMaterial({ color: '#ffe27a' });
+const fxGroup = new THREE.Group(); scene.add(fxGroup); const fxPool = [];
+function fxMesh(i) { if (!fxPool[i]) { const m = new THREE.Mesh(bubbleGeo, bubbleMat); fxGroup.add(m); fxPool[i] = m; } return fxPool[i]; }
+function hash(n) { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+function applyProps(props = {}, fx = {}) {
+  for (const k in home) { const n = nodes[k]; if (n && (k in props || n.userData._moved)) { n.position.copy(home[k].p); n.quaternion.copy(home[k].q); n.scale.copy(home[k].s); n.visible = home[k].v; n.userData._moved = false; } }
+  for (const k in props) {
+    const n = nodes[k]; if (!n) continue; const a = props[k]; n.userData._moved = true;
+    if (a.p) n.position.set(...a.p); if (a.r) n.rotation.set(...a.r); if (a.s !== undefined) n.scale.setScalar(a.s); if (a.v !== undefined) n.visible = !!a.v;
+    if (a.col) for (const m of liquidMats(k)) { m.color.set(a.col); if (m.emissive) m.emissive.set(a.emi || a.col); m.emissiveIntensity = a.ei ?? 0.25; }
+  }
+  fxPool.forEach(m => m.visible = false); let idx = 0;
+  if (fx.bubbles) { const b = fx.bubbles; for (let i = 0; i < (b.n || 26); i++) { const m = fxMesh(idx++); m.material = bubbleMat; const ph = hash(i), life = ((b.t * (0.7 + hash(i + 9) * 0.8) + ph * 3) % 1.4) / 1.4;
+      m.position.set(b.o[0] + (hash(i + 2) - 0.5) * b.w, b.o[1] + life * b.h, b.o[2] + (hash(i + 5) - 0.5) * b.w * 0.6); m.scale.setScalar((0.6 + hash(i + 4)) * (1 - life * 0.4) * (b.size || 1)); m.visible = true; } }
+  if (fx.sparks) { const b = fx.sparks; for (let i = 0; i < (b.n || 30); i++) { const m = fxMesh(idx++); m.material = sparkMat; const t = (b.t * (0.5 + hash(i) * 0.6) + hash(i + 1)) % 1;
+      const ang = hash(i + 3) * 6.28, rad = (0.1 + hash(i + 7) * 0.5) * b.r * (0.3 + t);
+      m.position.set(b.o[0] + Math.cos(ang) * rad, b.o[1] + Math.sin(ang * 1.7) * rad * 0.8 + (b.rise || 0) * t, b.o[2] + 0.3 + Math.sin(ang) * rad * 0.3); m.scale.setScalar((0.5 + hash(i + 8)) * (1 - t) * (b.size || 1.4)); m.visible = true; } }
+  fxGroup.children.forEach(m => { const c = camera.position; });
+}
+
+function applyCards(cards = []) {
+  cardPool.forEach(g => g.visible = false);
+  cards.forEach((c, i) => {
+    const g = getCard(i); const { mesh, sh } = g.userData; g.visible = true;
+    mesh.material.map = getTex(c.img); mesh.material.needsUpdate = true; const al = c.a ?? 1; mesh.material.opacity = al; g.visible = al > 0.36;
+    g.position.set(c.x, c.y || 0, c.z);
+    const yaw = Math.atan2(camera.position.x - c.x, camera.position.z - c.z);   // vertical-axis turn only
+    g.rotation.set(0, yaw, 0); const s = c.s || 1; g.scale.set(s * (c.flip ? -1 : 1), s * (c.sy || 1), s);
+    g.userData.sh.visible = !c.noShadow; sh.scale.set(1, 1, 1); sh.rotation.set(-Math.PI / 2, 0, -yaw * 0 );
+    sh.material.opacity = (c.shadow ?? 0.55) * al; sh.position.y = 0.012 / Math.max(s, 0.01);
+  });
+}
+
+function setCamera(c) {
+  camera.fov = c.fov; camera.aspect = WIDTH / HEIGHT; camera.updateProjectionMatrix();
+  camera.position.set(...c.pos); const roll = c.roll || 0;
+  camera.up.set(Math.sin(roll), Math.cos(roll), 0); camera.lookAt(...c.look);
+}
+
+// ------------------------------------------------------------ composite (supports soft dissolve between two cameras/places)
+const out = document.createElement('canvas'); out.width = WIDTH; out.height = HEIGHT; const octx = out.getContext('2d');
+function pass(camData, setName, state) {
+  useSet(setName); setCamera(camData); applyProps(state.props, state.fx); applyCards(state.cards); renderer.render(scene, camera);
+}
+window.renderFrame = (f, quality = 0.93) => {
+  pass(f.cam, f.set || 'lab', f);
+  if (f.mix && f.mix.a > 0.001) {
+    octx.globalAlpha = 1; octx.drawImage(renderer.domElement, 0, 0);
+    pass(f.mix.cam, f.mix.set, f); octx.globalAlpha = Math.min(1, f.mix.a); octx.drawImage(renderer.domElement, 0, 0); octx.globalAlpha = 1;
+    return out.toDataURL('image/jpeg', quality);
+  }
+  return renderer.domElement.toDataURL('image/jpeg', quality);
+};
+window.nodeNames = () => Object.keys(nodes);
+window.sheet = async (items, cols = 6, cw = 300) => {
+  const ch = Math.round(cw * 16 / 9), pad = 10, lh = 54, rows = Math.ceil(items.length / cols);
+  const c = document.createElement('canvas'); c.width = cols * (cw + pad) + pad; c.height = rows * (ch + lh + pad) + pad; const x = c.getContext('2d');
+  x.fillStyle = '#1b1424'; x.fillRect(0, 0, c.width, c.height); x.font = 'bold 15px sans-serif'; x.textBaseline = 'top';
+  for (let k = 0; k < items.length; k++) {
+    const img = new Image(); await new Promise(r => { img.onload = r; img.src = items[k].url; });
+    const col = k % cols, row = Math.floor(k / cols), X = pad + col * (cw + pad), Y = pad + row * (ch + lh + pad);
+    x.drawImage(img, X, Y, cw, ch); x.fillStyle = '#ffe9a6'; x.fillText(items[k].l1, X, Y + ch + 4); x.fillStyle = '#cfd6ff'; x.font = '13px sans-serif';
+    const words = items[k].l2.split(' '); let ln = '', yy = Y + ch + 24; for (const w of words) { if (x.measureText(ln + ' ' + w).width > cw) { x.fillText(ln, X, yy); yy += 15; ln = w; } else ln += ' ' + w; } x.fillText(ln, X, yy); x.font = 'bold 15px sans-serif';
+  }
+  return c.toDataURL('image/jpeg', 0.9);
+};
+window.ready = true;
+</script>

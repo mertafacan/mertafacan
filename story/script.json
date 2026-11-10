@@ -1,0 +1,17 @@
+{
+  "title": "The Prize That Vanished on a Shelf",
+  "voice": { "engine": "kokoro", "voice": "am_michael", "speed": 1.0, "gap": 0.28 },
+  "note": "Quoted joke in line 3 is a dramatisation. Facts: Hevesy dissolved the Laue and Franck gold medals in aqua regia in Copenhagen in 1940, left the beaker on a lab shelf, and recovered the gold after the war.",
+  "lines": [
+    { "id": 1,  "beat": "hook",    "text": "A scientist dissolved two gold Nobel medals in acid, on purpose" },
+    { "id": 2,  "beat": "setup",   "text": "It was nineteen forty, and German soldiers were marching into Denmark, and George had two gold medals he was supposed to guard" },
+    { "id": 3,  "beat": "mocker",  "text": "So he grabbed a jar and a strong acid, and his friend saw him and laughed, and said, George, you are making soup out of gold" },
+    { "id": 4,  "beat": "method1", "text": "But the acid was so strong that it ate the gold, and the shiny medals turned into orange water" },
+    { "id": 5,  "beat": "method2", "text": "Then he put the jar on a shelf with lots of other jars, and he did not even hide it" },
+    { "id": 6,  "beat": "method3", "text": "Then the soldiers came in, and they went through every drawer, and they looked under every table" },
+    { "id": 7,  "beat": "yousee",  "text": "You see, it is like the junk drawer in your kitchen, nobody looks in there, because everything in there looks like junk" },
+    { "id": 8,  "beat": "payoff1", "text": "So the soldiers walked right past the jar, and never touched it" },
+    { "id": 9,  "beat": "payoff2", "text": "And when the war was over, George turned the orange water back into gold, and the medals were made again" },
+    { "id": 10, "beat": "twist",   "text": "So the man who ruined two Nobel medals on purpose, was the one who saved them" }
+  ]
+}

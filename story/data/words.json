@@ -1,0 +1,1020 @@
+{
+ "duration": 59.041625,
+ "lines": [
+  {
+   "id": 1,
+   "beat": "hook",
+   "text": "A scientist dissolved two gold Nobel medals in acid, on purpose",
+   "start": 0.15,
+   "end": 4.456833333333333,
+   "words": [
+    {
+     "w": "A",
+     "start": 0.0,
+     "end": 0.32
+    },
+    {
+     "w": "scientist",
+     "start": 0.32,
+     "end": 0.66
+    },
+    {
+     "w": "dissolved",
+     "start": 0.66,
+     "end": 1.16
+    },
+    {
+     "w": "two",
+     "start": 1.16,
+     "end": 1.5
+    },
+    {
+     "w": "gold",
+     "start": 1.5,
+     "end": 1.8
+    },
+    {
+     "w": "Nobel",
+     "start": 1.8,
+     "end": 2.06
+    },
+    {
+     "w": "medals",
+     "start": 2.06,
+     "end": 2.46
+    },
+    {
+     "w": "in",
+     "start": 2.46,
+     "end": 2.72
+    },
+    {
+     "w": "acid,",
+     "start": 2.72,
+     "end": 3.16
+    },
+    {
+     "w": "on",
+     "start": 3.6,
+     "end": 3.78
+    },
+    {
+     "w": "purpose",
+     "start": 3.78,
+     "end": 4.22
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "beat": "setup",
+   "text": "It was nineteen forty, and German soldiers were marching into Denmark, and George had two gold medals he was supposed to guard",
+   "start": 4.736833333333333,
+   "end": 12.611083333333333,
+   "words": [
+    {
+     "w": "It",
+     "start": 4.78,
+     "end": 4.88
+    },
+    {
+     "w": "was",
+     "start": 4.88,
+     "end": 5.0
+    },
+    {
+     "w": "nineteen",
+     "start": 5.0,
+     "end": 5.85
+    },
+    {
+     "w": "forty,",
+     "start": 5.85,
+     "end": 6.7
+    },
+    {
+     "w": "and",
+     "start": 6.7,
+     "end": 6.76
+    },
+    {
+     "w": "German",
+     "start": 6.76,
+     "end": 7.08
+    },
+    {
+     "w": "soldiers",
+     "start": 7.08,
+     "end": 7.52
+    },
+    {
+     "w": "were",
+     "start": 7.52,
+     "end": 7.84
+    },
+    {
+     "w": "marching",
+     "start": 7.84,
+     "end": 8.16
+    },
+    {
+     "w": "into",
+     "start": 8.16,
+     "end": 8.5
+    },
+    {
+     "w": "Denmark,",
+     "start": 8.5,
+     "end": 8.9
+    },
+    {
+     "w": "and",
+     "start": 9.44,
+     "end": 9.7
+    },
+    {
+     "w": "George",
+     "start": 9.7,
+     "end": 9.94
+    },
+    {
+     "w": "had",
+     "start": 9.94,
+     "end": 10.22
+    },
+    {
+     "w": "two",
+     "start": 10.22,
+     "end": 10.54
+    },
+    {
+     "w": "gold",
+     "start": 10.54,
+     "end": 10.92
+    },
+    {
+     "w": "medals",
+     "start": 10.92,
+     "end": 11.24
+    },
+    {
+     "w": "he",
+     "start": 11.24,
+     "end": 11.52
+    },
+    {
+     "w": "was",
+     "start": 11.52,
+     "end": 11.66
+    },
+    {
+     "w": "supposed",
+     "start": 11.66,
+     "end": 11.98
+    },
+    {
+     "w": "to",
+     "start": 11.98,
+     "end": 12.32
+    },
+    {
+     "w": "guard",
+     "start": 12.32,
+     "end": 12.54
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "beat": "mocker",
+   "text": "So he grabbed a jar and a strong acid, and his friend saw him and laughed, and said, George, you are making soup out of gold",
+   "start": 12.891083333333333,
+   "end": 20.378,
+   "words": [
+    {
+     "w": "So",
+     "start": 12.88,
+     "end": 13.06
+    },
+    {
+     "w": "he",
+     "start": 13.06,
+     "end": 13.18
+    },
+    {
+     "w": "grabbed",
+     "start": 13.18,
+     "end": 13.44
+    },
+    {
+     "w": "a",
+     "start": 13.44,
+     "end": 13.7
+    },
+    {
+     "w": "jar",
+     "start": 13.7,
+     "end": 13.98
+    },
+    {
+     "w": "and",
+     "start": 13.98,
+     "end": 14.2
+    },
+    {
+     "w": "a",
+     "start": 14.2,
+     "end": 14.44
+    },
+    {
+     "w": "strong",
+     "start": 14.44,
+     "end": 14.64
+    },
+    {
+     "w": "acid,",
+     "start": 14.64,
+     "end": 15.14
+    },
+    {
+     "w": "and",
+     "start": 15.54,
+     "end": 15.74
+    },
+    {
+     "w": "his",
+     "start": 15.74,
+     "end": 15.88
+    },
+    {
+     "w": "friend",
+     "start": 15.88,
+     "end": 16.1
+    },
+    {
+     "w": "saw",
+     "start": 16.1,
+     "end": 16.4
+    },
+    {
+     "w": "him",
+     "start": 16.4,
+     "end": 16.64
+    },
+    {
+     "w": "and",
+     "start": 16.64,
+     "end": 16.82
+    },
+    {
+     "w": "laughed,",
+     "start": 16.82,
+     "end": 17.12
+    },
+    {
+     "w": "and",
+     "start": 17.12,
+     "end": 17.5
+    },
+    {
+     "w": "said,",
+     "start": 17.5,
+     "end": 17.74
+    },
+    {
+     "w": "George,",
+     "start": 18.2,
+     "end": 18.2
+    },
+    {
+     "w": "you",
+     "start": 18.82,
+     "end": 18.9
+    },
+    {
+     "w": "are",
+     "start": 18.9,
+     "end": 19.02
+    },
+    {
+     "w": "making",
+     "start": 19.02,
+     "end": 19.32
+    },
+    {
+     "w": "soup",
+     "start": 19.32,
+     "end": 19.64
+    },
+    {
+     "w": "out",
+     "start": 19.64,
+     "end": 19.82
+    },
+    {
+     "w": "of",
+     "start": 19.82,
+     "end": 19.98
+    },
+    {
+     "w": "gold",
+     "start": 19.98,
+     "end": 20.3
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "beat": "method1",
+   "text": "But the acid was so strong that it ate the gold, and the shiny medals turned into orange water",
+   "start": 20.658,
+   "end": 26.386083333333332,
+   "words": [
+    {
+     "w": "But",
+     "start": 20.62,
+     "end": 20.8
+    },
+    {
+     "w": "the",
+     "start": 20.8,
+     "end": 20.92
+    },
+    {
+     "w": "acid",
+     "start": 20.92,
+     "end": 21.32
+    },
+    {
+     "w": "was",
+     "start": 21.32,
+     "end": 21.52
+    },
+    {
+     "w": "so",
+     "start": 21.52,
+     "end": 21.76
+    },
+    {
+     "w": "strong",
+     "start": 21.76,
+     "end": 22.18
+    },
+    {
+     "w": "that",
+     "start": 22.18,
+     "end": 22.38
+    },
+    {
+     "w": "it",
+     "start": 22.38,
+     "end": 22.48
+    },
+    {
+     "w": "ate",
+     "start": 22.48,
+     "end": 22.66
+    },
+    {
+     "w": "the",
+     "start": 22.66,
+     "end": 22.86
+    },
+    {
+     "w": "gold,",
+     "start": 22.86,
+     "end": 23.24
+    },
+    {
+     "w": "and",
+     "start": 23.62,
+     "end": 23.86
+    },
+    {
+     "w": "the",
+     "start": 23.86,
+     "end": 24.02
+    },
+    {
+     "w": "shiny",
+     "start": 24.02,
+     "end": 24.32
+    },
+    {
+     "w": "medals",
+     "start": 24.32,
+     "end": 24.7
+    },
+    {
+     "w": "turned",
+     "start": 24.7,
+     "end": 25.1
+    },
+    {
+     "w": "into",
+     "start": 25.1,
+     "end": 25.38
+    },
+    {
+     "w": "orange",
+     "start": 25.38,
+     "end": 25.8
+    },
+    {
+     "w": "water",
+     "start": 25.8,
+     "end": 26.3
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "beat": "method2",
+   "text": "Then he put the jar on a shelf with lots of other jars, and he did not even hide it",
+   "start": 26.666083333333333,
+   "end": 31.483875,
+   "words": [
+    {
+     "w": "Then",
+     "start": 26.3,
+     "end": 26.82
+    },
+    {
+     "w": "he",
+     "start": 26.82,
+     "end": 26.96
+    },
+    {
+     "w": "put",
+     "start": 26.96,
+     "end": 27.1
+    },
+    {
+     "w": "the",
+     "start": 27.1,
+     "end": 27.26
+    },
+    {
+     "w": "jar",
+     "start": 27.26,
+     "end": 27.52
+    },
+    {
+     "w": "on",
+     "start": 27.52,
+     "end": 27.72
+    },
+    {
+     "w": "a",
+     "start": 27.72,
+     "end": 27.86
+    },
+    {
+     "w": "shelf",
+     "start": 27.86,
+     "end": 28.16
+    },
+    {
+     "w": "with",
+     "start": 28.16,
+     "end": 28.42
+    },
+    {
+     "w": "lots",
+     "start": 28.42,
+     "end": 28.72
+    },
+    {
+     "w": "of",
+     "start": 28.72,
+     "end": 28.96
+    },
+    {
+     "w": "other",
+     "start": 28.96,
+     "end": 29.18
+    },
+    {
+     "w": "jars,",
+     "start": 29.18,
+     "end": 29.62
+    },
+    {
+     "w": "and",
+     "start": 29.62,
+     "end": 30.24
+    },
+    {
+     "w": "he",
+     "start": 30.24,
+     "end": 30.38
+    },
+    {
+     "w": "did",
+     "start": 30.38,
+     "end": 30.5
+    },
+    {
+     "w": "not",
+     "start": 30.5,
+     "end": 30.7
+    },
+    {
+     "w": "even",
+     "start": 30.7,
+     "end": 30.98
+    },
+    {
+     "w": "hide",
+     "start": 30.98,
+     "end": 31.32
+    },
+    {
+     "w": "it",
+     "start": 31.32,
+     "end": 31.62
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "beat": "method3",
+   "text": "Then the soldiers came in, and they went through every drawer, and they looked under every table",
+   "start": 31.763875,
+   "end": 36.726875,
+   "words": [
+    {
+     "w": "Then",
+     "start": 31.9,
+     "end": 31.96
+    },
+    {
+     "w": "the",
+     "start": 31.96,
+     "end": 32.16
+    },
+    {
+     "w": "soldiers",
+     "start": 32.16,
+     "end": 32.48
+    },
+    {
+     "w": "came",
+     "start": 32.48,
+     "end": 32.84
+    },
+    {
+     "w": "in,",
+     "start": 32.84,
+     "end": 33.18
+    },
+    {
+     "w": "and",
+     "start": 33.38,
+     "end": 33.58
+    },
+    {
+     "w": "they",
+     "start": 33.58,
+     "end": 33.7
+    },
+    {
+     "w": "went",
+     "start": 33.7,
+     "end": 33.86
+    },
+    {
+     "w": "through",
+     "start": 33.86,
+     "end": 34.08
+    },
+    {
+     "w": "every",
+     "start": 34.08,
+     "end": 34.46
+    },
+    {
+     "w": "drawer,",
+     "start": 34.46,
+     "end": 34.86
+    },
+    {
+     "w": "and",
+     "start": 35.2,
+     "end": 35.34
+    },
+    {
+     "w": "they",
+     "start": 35.34,
+     "end": 35.46
+    },
+    {
+     "w": "looked",
+     "start": 35.46,
+     "end": 35.66
+    },
+    {
+     "w": "under",
+     "start": 35.66,
+     "end": 35.88
+    },
+    {
+     "w": "every",
+     "start": 35.88,
+     "end": 36.24
+    },
+    {
+     "w": "table",
+     "start": 36.24,
+     "end": 36.68
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "beat": "yousee",
+   "text": "You see, it is like the junk drawer in your kitchen, nobody looks in there, because everything in there looks like junk",
+   "start": 37.006875,
+   "end": 43.49583333333333,
+   "words": [
+    {
+     "w": "You",
+     "start": 37.06,
+     "end": 37.16
+    },
+    {
+     "w": "see,",
+     "start": 37.16,
+     "end": 37.42
+    },
+    {
+     "w": "it",
+     "start": 37.54,
+     "end": 37.62
+    },
+    {
+     "w": "is",
+     "start": 37.62,
+     "end": 37.74
+    },
+    {
+     "w": "like",
+     "start": 37.74,
+     "end": 37.94
+    },
+    {
+     "w": "the",
+     "start": 37.94,
+     "end": 38.16
+    },
+    {
+     "w": "junk",
+     "start": 38.16,
+     "end": 38.38
+    },
+    {
+     "w": "drawer",
+     "start": 38.38,
+     "end": 38.72
+    },
+    {
+     "w": "in",
+     "start": 38.72,
+     "end": 38.9
+    },
+    {
+     "w": "your",
+     "start": 38.9,
+     "end": 39.0
+    },
+    {
+     "w": "kitchen,",
+     "start": 39.0,
+     "end": 39.4
+    },
+    {
+     "w": "nobody",
+     "start": 39.96,
+     "end": 40.2
+    },
+    {
+     "w": "looks",
+     "start": 40.2,
+     "end": 40.5
+    },
+    {
+     "w": "in",
+     "start": 40.5,
+     "end": 40.72
+    },
+    {
+     "w": "there,",
+     "start": 40.72,
+     "end": 41.04
+    },
+    {
+     "w": "because",
+     "start": 41.26,
+     "end": 41.64
+    },
+    {
+     "w": "everything",
+     "start": 41.64,
+     "end": 42.12
+    },
+    {
+     "w": "in",
+     "start": 42.12,
+     "end": 42.46
+    },
+    {
+     "w": "there",
+     "start": 42.46,
+     "end": 42.64
+    },
+    {
+     "w": "looks",
+     "start": 42.64,
+     "end": 42.84
+    },
+    {
+     "w": "like",
+     "start": 42.84,
+     "end": 43.16
+    },
+    {
+     "w": "junk",
+     "start": 43.16,
+     "end": 43.46
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "beat": "payoff1",
+   "text": "So the soldiers walked right past the jar, and never touched it",
+   "start": 43.77583333333333,
+   "end": 47.363875,
+   "words": [
+    {
+     "w": "So",
+     "start": 43.72,
+     "end": 43.94
+    },
+    {
+     "w": "the",
+     "start": 43.94,
+     "end": 44.1
+    },
+    {
+     "w": "soldiers",
+     "start": 44.1,
+     "end": 44.48
+    },
+    {
+     "w": "walked",
+     "start": 44.48,
+     "end": 44.84
+    },
+    {
+     "w": "right",
+     "start": 44.84,
+     "end": 45.18
+    },
+    {
+     "w": "past",
+     "start": 45.18,
+     "end": 45.42
+    },
+    {
+     "w": "the",
+     "start": 45.42,
+     "end": 45.68
+    },
+    {
+     "w": "jar,",
+     "start": 45.68,
+     "end": 46.0
+    },
+    {
+     "w": "and",
+     "start": 46.32,
+     "end": 46.54
+    },
+    {
+     "w": "never",
+     "start": 46.54,
+     "end": 46.8
+    },
+    {
+     "w": "touched",
+     "start": 46.8,
+     "end": 47.08
+    },
+    {
+     "w": "it",
+     "start": 47.08,
+     "end": 47.4
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "beat": "payoff2",
+   "text": "And when the war was over, George turned the orange water back into gold, and the medals were made again",
+   "start": 47.643875,
+   "end": 53.60608333333333,
+   "words": [
+    {
+     "w": "And",
+     "start": 47.68,
+     "end": 47.8
+    },
+    {
+     "w": "when",
+     "start": 47.8,
+     "end": 47.92
+    },
+    {
+     "w": "the",
+     "start": 47.92,
+     "end": 48.02
+    },
+    {
+     "w": "war",
+     "start": 48.02,
+     "end": 48.2
+    },
+    {
+     "w": "was",
+     "start": 48.2,
+     "end": 48.4
+    },
+    {
+     "w": "over,",
+     "start": 48.4,
+     "end": 48.84
+    },
+    {
+     "w": "George",
+     "start": 49.24,
+     "end": 49.54
+    },
+    {
+     "w": "turned",
+     "start": 49.54,
+     "end": 49.9
+    },
+    {
+     "w": "the",
+     "start": 49.9,
+     "end": 50.08
+    },
+    {
+     "w": "orange",
+     "start": 50.08,
+     "end": 50.36
+    },
+    {
+     "w": "water",
+     "start": 50.36,
+     "end": 50.78
+    },
+    {
+     "w": "back",
+     "start": 50.78,
+     "end": 51.08
+    },
+    {
+     "w": "into",
+     "start": 51.08,
+     "end": 51.34
+    },
+    {
+     "w": "gold,",
+     "start": 51.34,
+     "end": 51.76
+    },
+    {
+     "w": "and",
+     "start": 52.22,
+     "end": 52.46
+    },
+    {
+     "w": "the",
+     "start": 52.46,
+     "end": 52.58
+    },
+    {
+     "w": "medals",
+     "start": 52.58,
+     "end": 52.8
+    },
+    {
+     "w": "were",
+     "start": 52.8,
+     "end": 53.06
+    },
+    {
+     "w": "made",
+     "start": 53.06,
+     "end": 53.28
+    },
+    {
+     "w": "again",
+     "start": 53.28,
+     "end": 53.6
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "beat": "twist",
+   "text": "So the man who ruined two Nobel medals on purpose, was the one who saved them",
+   "start": 53.88608333333333,
+   "end": 58.541625,
+   "words": [
+    {
+     "w": "So",
+     "start": 53.6,
+     "end": 54.04
+    },
+    {
+     "w": "the",
+     "start": 54.04,
+     "end": 54.18
+    },
+    {
+     "w": "man",
+     "start": 54.18,
+     "end": 54.38
+    },
+    {
+     "w": "who",
+     "start": 54.38,
+     "end": 54.6
+    },
+    {
+     "w": "ruined",
+     "start": 54.6,
+     "end": 54.98
+    },
+    {
+     "w": "two",
+     "start": 54.98,
+     "end": 55.36
+    },
+    {
+     "w": "Nobel",
+     "start": 55.36,
+     "end": 55.78
+    },
+    {
+     "w": "medals",
+     "start": 55.78,
+     "end": 56.12
+    },
+    {
+     "w": "on",
+     "start": 56.12,
+     "end": 56.36
+    },
+    {
+     "w": "purpose,",
+     "start": 56.36,
+     "end": 56.82
+    },
+    {
+     "w": "was",
+     "start": 56.82,
+     "end": 57.48
+    },
+    {
+     "w": "the",
+     "start": 57.48,
+     "end": 57.62
+    },
+    {
+     "w": "one",
+     "start": 57.62,
+     "end": 57.8
+    },
+    {
+     "w": "who",
+     "start": 57.8,
+     "end": 57.98
+    },
+    {
+     "w": "saved",
+     "start": 57.98,
+     "end": 58.28
+    },
+    {
+     "w": "them",
+     "start": 58.28,
+     "end": 58.54
+    }
+   ]
+  }
+ ]
+}

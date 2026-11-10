@@ -1,0 +1,10 @@
+{
+ "duration": 59.4,
+ "voice_lufs": -23.39,
+ "music_lufs_before_duck": -43.39,
+ "music_under_voice_db": 20.0,
+ "mix_lufs": -14.15,
+ "mix_peak_dbfs": -1.01,
+ "sfx_cues": 37,
+ "music_vs_voice_db_in_speech": -24.5
+}

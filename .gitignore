@@ -1,0 +1,12 @@
+node_modules/
+story/node_modules/
+story/frames/
+story/data/cards/
+story/data/textures/
+story/data/scene.blend*
+story/audio/raw/
+story/audio/*.wav
+story/out/probe/
+story/out/test_*
+story/out/render.log
+__pycache__/

@@ -1,0 +1,17 @@
+<!doctype html><meta charset=utf-8>
+<style>
+@font-face{font-family:FredokaBold;src:url(assets/fonts/Fredoka-Bold.ttf);font-weight:700}
+@font-face{font-family:PatrickHand;src:url(assets/fonts/PatrickHand.ttf)}
+@font-face{font-family:BalooBold;src:url(assets/fonts/Baloo2-ExtraBold.ttf)}
+</style><body>
+<script type=module>
+import { CAST, POSES, EXPRS, W, H, drawCharacter } from './chars.js';
+import { allTextures } from './textures.js';
+await Promise.all(['FredokaBold','PatrickHand','BalooBold'].map(f=>document.fonts.load(`40px ${f}`,'AaBb')));
+window.textures = () => { const T = allTextures(); const out = {}; for (const k in T) out[k] = T[k].toDataURL('image/png'); return out; };
+const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const ctx = cv.getContext('2d');
+window.card = (id, pose, expr, blink) => { drawCharacter(ctx, id, pose, expr, { blink }); return cv.toDataURL('image/webp', 0.92); };
+import { buildTimeline } from './timeline.js';
+window.makeTimeline = async () => { const words = await (await fetch('/data/words.json')).json(); const L = await (await fetch('/layout.json')).json(); const tl = buildTimeline(words, L); const frames = []; const issues = []; for (let i = 0; i < tl.frames; i++) { const f = tl.frame(i); frames.push(f); const is = tl.check(f); if (is.length) issues.push([i, f.shot, is]); } return { meta: { fps: tl.fps, duration: tl.duration, frames: tl.frames, shots: tl.shots }, frames, sfx: tl.sfx, issues }; };
+window.ready = true;
+</script>

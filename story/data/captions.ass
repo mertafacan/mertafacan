@@ -1,0 +1,122 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,CapBaloo,118,&H00FFFFFF,&H00FFFFFF,&H002E1A2A,&H00000000,0,0,0,0,100,100,0,0,1,13,0,5,40,40,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.68,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}A SCIENTIST
+Dialogue: 0,0:00:00.66,0:00:01.52,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}DISSOLVED TWO
+Dialogue: 0,0:00:01.50,0:00:02.08,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}GOLD NOBEL
+Dialogue: 0,0:00:02.06,0:00:02.48,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}MEDALS
+Dialogue: 0,0:00:02.46,0:00:03.24,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IN ACID
+Dialogue: 0,0:00:03.60,0:00:04.30,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}ON PURPOSE
+Dialogue: 0,0:00:04.78,0:00:05.02,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IT WAS
+Dialogue: 0,0:00:05.00,0:00:05.87,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}NINETEEN
+Dialogue: 0,0:00:05.85,0:00:06.72,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}FORTY
+Dialogue: 0,0:00:06.70,0:00:07.10,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND GERMAN
+Dialogue: 0,0:00:07.08,0:00:07.54,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SOLDIERS
+Dialogue: 0,0:00:07.52,0:00:08.18,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WERE MARCHING
+Dialogue: 0,0:00:08.16,0:00:08.98,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}INTO DENMARK
+Dialogue: 0,0:00:09.44,0:00:09.96,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND GEORGE
+Dialogue: 0,0:00:09.94,0:00:10.56,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}HAD TWO
+Dialogue: 0,0:00:10.54,0:00:11.26,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}GOLD MEDALS
+Dialogue: 0,0:00:11.24,0:00:11.68,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}HE WAS
+Dialogue: 0,0:00:11.66,0:00:12.00,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SUPPOSED
+Dialogue: 0,0:00:11.98,0:00:12.62,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}TO GUARD
+Dialogue: 0,0:00:12.88,0:00:13.20,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SO HE
+Dialogue: 0,0:00:13.18,0:00:13.46,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}GRABBED
+Dialogue: 0,0:00:13.44,0:00:14.00,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}A JAR
+Dialogue: 0,0:00:13.98,0:00:14.46,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND A
+Dialogue: 0,0:00:14.44,0:00:15.22,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}STRONG ACID
+Dialogue: 0,0:00:15.54,0:00:15.90,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND HIS
+Dialogue: 0,0:00:15.88,0:00:16.42,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}FRIEND SAW
+Dialogue: 0,0:00:16.40,0:00:16.66,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}HIM
+Dialogue: 0,0:00:16.64,0:00:17.14,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND LAUGHED
+Dialogue: 0,0:00:17.12,0:00:17.82,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND SAID
+Dialogue: 0,0:00:18.20,0:00:18.42,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}GEORGE
+Dialogue: 0,0:00:18.82,0:00:19.04,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}YOU ARE
+Dialogue: 0,0:00:19.02,0:00:19.66,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}MAKING SOUP
+Dialogue: 0,0:00:19.64,0:00:19.84,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}OUT
+Dialogue: 0,0:00:19.82,0:00:20.38,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}OF GOLD
+Dialogue: 0,0:00:20.62,0:00:20.94,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}BUT THE
+Dialogue: 0,0:00:20.92,0:00:21.34,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}ACID
+Dialogue: 0,0:00:21.32,0:00:21.78,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WAS SO
+Dialogue: 0,0:00:21.76,0:00:22.20,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}STRONG
+Dialogue: 0,0:00:22.18,0:00:22.50,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THAT IT
+Dialogue: 0,0:00:22.48,0:00:22.68,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}ATE
+Dialogue: 0,0:00:22.66,0:00:23.32,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THE GOLD
+Dialogue: 0,0:00:23.62,0:00:24.04,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND THE
+Dialogue: 0,0:00:24.02,0:00:24.72,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SHINY MEDALS
+Dialogue: 0,0:00:24.70,0:00:25.40,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}TURNED INTO
+Dialogue: 0,0:00:25.38,0:00:25.82,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}ORANGE
+Dialogue: 0,0:00:25.80,0:00:26.32,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WATER
+Dialogue: 0,0:00:26.30,0:00:26.98,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THEN HE
+Dialogue: 0,0:00:26.96,0:00:27.12,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}PUT
+Dialogue: 0,0:00:27.10,0:00:27.54,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THE JAR
+Dialogue: 0,0:00:27.52,0:00:27.88,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}ON A
+Dialogue: 0,0:00:27.86,0:00:28.18,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SHELF
+Dialogue: 0,0:00:28.16,0:00:28.74,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WITH LOTS
+Dialogue: 0,0:00:28.72,0:00:29.20,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}OF OTHER
+Dialogue: 0,0:00:29.18,0:00:29.64,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}JARS
+Dialogue: 0,0:00:29.62,0:00:30.40,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND HE
+Dialogue: 0,0:00:30.38,0:00:30.72,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}DID NOT
+Dialogue: 0,0:00:30.70,0:00:31.34,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}EVEN HIDE
+Dialogue: 0,0:00:31.32,0:00:31.70,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IT
+Dialogue: 0,0:00:31.90,0:00:32.18,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THEN THE
+Dialogue: 0,0:00:32.16,0:00:32.86,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SOLDIERS CAME
+Dialogue: 0,0:00:32.84,0:00:33.26,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IN
+Dialogue: 0,0:00:33.38,0:00:33.72,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND THEY
+Dialogue: 0,0:00:33.70,0:00:34.10,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WENT THROUGH
+Dialogue: 0,0:00:34.08,0:00:34.94,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}EVERY DRAWER
+Dialogue: 0,0:00:35.20,0:00:35.48,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND THEY
+Dialogue: 0,0:00:35.46,0:00:35.90,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}LOOKED UNDER
+Dialogue: 0,0:00:35.88,0:00:36.76,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}EVERY TABLE
+Dialogue: 0,0:00:37.06,0:00:37.50,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}YOU SEE
+Dialogue: 0,0:00:37.54,0:00:37.76,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IT IS
+Dialogue: 0,0:00:37.74,0:00:37.96,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}LIKE
+Dialogue: 0,0:00:37.94,0:00:38.40,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THE JUNK
+Dialogue: 0,0:00:38.38,0:00:38.74,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}DRAWER
+Dialogue: 0,0:00:38.72,0:00:39.02,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IN YOUR
+Dialogue: 0,0:00:39.00,0:00:39.48,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}KITCHEN
+Dialogue: 0,0:00:39.96,0:00:40.52,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}NOBODY LOOKS
+Dialogue: 0,0:00:40.50,0:00:41.12,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IN THERE
+Dialogue: 0,0:00:41.26,0:00:41.66,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}BECAUSE
+Dialogue: 0,0:00:41.64,0:00:42.14,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}EVERYTHING
+Dialogue: 0,0:00:42.12,0:00:42.66,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IN THERE
+Dialogue: 0,0:00:42.64,0:00:43.18,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}LOOKS LIKE
+Dialogue: 0,0:00:43.16,0:00:43.54,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}JUNK
+Dialogue: 0,0:00:43.72,0:00:44.12,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SO THE
+Dialogue: 0,0:00:44.10,0:00:44.86,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SOLDIERS WALKED
+Dialogue: 0,0:00:44.84,0:00:45.44,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}RIGHT PAST
+Dialogue: 0,0:00:45.42,0:00:46.08,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THE JAR
+Dialogue: 0,0:00:46.32,0:00:46.82,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND NEVER
+Dialogue: 0,0:00:46.80,0:00:47.10,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}TOUCHED
+Dialogue: 0,0:00:47.08,0:00:47.48,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}IT
+Dialogue: 0,0:00:47.68,0:00:47.94,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND WHEN
+Dialogue: 0,0:00:47.92,0:00:48.22,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THE WAR
+Dialogue: 0,0:00:48.20,0:00:48.92,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WAS OVER
+Dialogue: 0,0:00:49.24,0:00:49.92,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}GEORGE TURNED
+Dialogue: 0,0:00:49.90,0:00:50.38,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THE ORANGE
+Dialogue: 0,0:00:50.36,0:00:51.10,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WATER BACK
+Dialogue: 0,0:00:51.08,0:00:51.84,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}INTO GOLD
+Dialogue: 0,0:00:52.22,0:00:52.60,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AND THE
+Dialogue: 0,0:00:52.58,0:00:52.82,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}MEDALS
+Dialogue: 0,0:00:52.80,0:00:53.30,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WERE MADE
+Dialogue: 0,0:00:53.28,0:00:53.62,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}AGAIN
+Dialogue: 0,0:00:53.60,0:00:54.20,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}SO THE
+Dialogue: 0,0:00:54.18,0:00:54.40,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}MAN
+Dialogue: 0,0:00:54.38,0:00:55.00,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WHO RUINED
+Dialogue: 0,0:00:54.98,0:00:55.80,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}TWO NOBEL
+Dialogue: 0,0:00:55.78,0:00:56.14,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}MEDALS
+Dialogue: 0,0:00:56.12,0:00:56.84,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}ON PURPOSE
+Dialogue: 0,0:00:56.82,0:00:57.64,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WAS THE
+Dialogue: 0,0:00:57.62,0:00:57.82,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}ONE
+Dialogue: 0,0:00:57.80,0:00:58.30,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}WHO SAVED
+Dialogue: 0,0:00:58.28,0:00:58.62,Cap,,0,0,0,,{\pos(540,1480)\fscx70\fscy70\t(0,90,\fscx108\fscy108)\t(90,170,\fscx100\fscy100)}THEM
