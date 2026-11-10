@@ -10,3 +10,13 @@ story/out/probe/
 story/out/test_*
 story/out/render.log
 __pycache__/
+istanbul/node_modules
+istanbul/frames/
+istanbul/out/prev/
+istanbul/out/probe/
+istanbul/data/dem.npy
+istanbul/audio/*.wav
+istanbul/audio/m*.mp3
+istanbul/audio/sfx/
+story/out/ref/
+istanbul/out/prev.log

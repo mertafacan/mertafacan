@@ -1,0 +1,223 @@
+{
+ "fps": 30,
+ "duration": 700.6,
+ "frames": 21018,
+ "schedule": [
+  {
+   "id": "byzantion",
+   "year": -660,
+   "title": "BYZANTION KURULUYOR",
+   "tIn": 7,
+   "tHold": 10.6,
+   "tEnd": 27.6
+  },
+  {
+   "id": "dareios",
+   "year": -513,
+   "title": "DAREİOS'UN TEKNE KÖPRÜSÜ",
+   "tIn": 33.9,
+   "tHold": 37.5,
+   "tEnd": 52.5
+  },
+  {
+   "id": "hipodrom",
+   "year": 203,
+   "title": "HİPODROM VE YENİ SURLAR",
+   "tIn": 59.9,
+   "tHold": 63.5,
+   "tEnd": 79.5
+  },
+  {
+   "id": "konstantin",
+   "year": 330,
+   "title": "KONSTANTİNOPOLİS: YENİ ROMA",
+   "tIn": 85.7,
+   "tHold": 89.3,
+   "tEnd": 108.3
+  },
+  {
+   "id": "surlar",
+   "year": 413,
+   "title": "THEODOSİUS SURLARI",
+   "tIn": 114.2,
+   "tHold": 117.8,
+   "tEnd": 135.8
+  },
+  {
+   "id": "nika",
+   "year": 532,
+   "title": "NİKA İSYANI",
+   "tIn": 141.9,
+   "tHold": 145.5,
+   "tEnd": 160.5
+  },
+  {
+   "id": "ayasofya",
+   "year": 537,
+   "title": "AYASOFYA AÇILIYOR",
+   "tIn": 164.5,
+   "tHold": 168.1,
+   "tEnd": 192.1
+  },
+  {
+   "id": "avar",
+   "year": 626,
+   "title": "AVAR VE PERS KUŞATMASI",
+   "tIn": 198,
+   "tHold": 201.6,
+   "tEnd": 216.6
+  },
+  {
+   "id": "arap",
+   "year": 717,
+   "title": "ARAP KUŞATMASI",
+   "tIn": 222.5,
+   "tHold": 226.1,
+   "tEnd": 241.1
+  },
+  {
+   "id": "hacli",
+   "year": 1204,
+   "title": "DÖRDÜNCÜ HAÇLI SEFERİ",
+   "tIn": 248.3,
+   "tHold": 251.9,
+   "tEnd": 267.9
+  },
+  {
+   "id": "geri",
+   "year": 1261,
+   "title": "BİZANS ŞEHRİ GERİ ALIYOR",
+   "tIn": 273.5,
+   "tHold": 277.1,
+   "tEnd": 290.1
+  },
+  {
+   "id": "galata",
+   "year": 1348,
+   "title": "GALATA'DA CENEVİZ KULESİ",
+   "tIn": 296,
+   "tHold": 299.6,
+   "tEnd": 313.6
+  },
+  {
+   "id": "rumelihisari",
+   "year": 1452,
+   "title": "RUMELİ HİSARI",
+   "tIn": 319.59999999999997,
+   "tHold": 323.2,
+   "tEnd": 337.2
+  },
+  {
+   "id": "gemiler",
+   "year": 1453,
+   "title": "GEMİLER KARADAN YÜRÜYOR",
+   "tIn": 340.59999999999997,
+   "tHold": 344.2,
+   "tEnd": 366.2
+  },
+  {
+   "id": "fetih",
+   "year": 1453,
+   "title": "İSTANBUL'UN FETHİ",
+   "tIn": 370.2,
+   "tHold": 373.8,
+   "tEnd": 399.8
+  },
+  {
+   "id": "topkapi",
+   "year": 1478,
+   "title": "TOPKAPI SARAYI",
+   "tIn": 404.79999999999995,
+   "tHold": 408.4,
+   "tEnd": 424.4
+  },
+  {
+   "id": "suleymaniye",
+   "year": 1557,
+   "title": "SÜLEYMANİYE CAMİİ",
+   "tIn": 430.29999999999995,
+   "tHold": 433.9,
+   "tEnd": 451.9
+  },
+  {
+   "id": "sultanahmet",
+   "year": 1616,
+   "title": "SULTANAHMET CAMİİ",
+   "tIn": 457.5,
+   "tHold": 461.1,
+   "tEnd": 477.1
+  },
+  {
+   "id": "dolmabahce",
+   "year": 1856,
+   "title": "BOĞAZ KIYILARINDA YENİ SARAYLAR",
+   "tIn": 483.7,
+   "tHold": 487.3,
+   "tEnd": 503.3
+  },
+  {
+   "id": "haydarpasa",
+   "year": 1908,
+   "title": "HAYDARPAŞA GARI",
+   "tIn": 508.9,
+   "tHold": 512.5,
+   "tEnd": 526.5
+  },
+  {
+   "id": "cumhuriyet",
+   "year": 1923,
+   "title": "CUMHURİYET İLAN EDİLİYOR",
+   "tIn": 531.1,
+   "tHold": 534.7,
+   "tEnd": 550.7
+  },
+  {
+   "id": "bogazici",
+   "year": 1973,
+   "title": "BOĞAZİÇİ KÖPRÜSÜ",
+   "tIn": 556.1999999999999,
+   "tHold": 559.8,
+   "tEnd": 576.8
+  },
+  {
+   "id": "metropol",
+   "year": 2000,
+   "title": "ŞEHRİN YÜKSELEN SİLUETİ",
+   "tIn": 581.9,
+   "tHold": 585.5,
+   "tEnd": 600.5
+  },
+  {
+   "id": "marmaray",
+   "year": 2013,
+   "title": "MARMARAY: DENİZİN ALTINDAN",
+   "tIn": 605,
+   "tHold": 608.6,
+   "tEnd": 622.6
+  },
+  {
+   "id": "yavuz",
+   "year": 2016,
+   "title": "YAVUZ SULTAN SELİM KÖPRÜSÜ",
+   "tIn": 626.3,
+   "tHold": 629.9,
+   "tEnd": 643.9
+  },
+  {
+   "id": "havalimani",
+   "year": 2018,
+   "title": "İSTANBUL HAVALİMANI",
+   "tIn": 647.3,
+   "tHold": 650.9,
+   "tEnd": 663.9
+  },
+  {
+   "id": "bugun",
+   "year": 2025,
+   "title": "İKİ KITANIN ŞEHRİ",
+   "tIn": 668,
+   "tHold": 671.6,
+   "tEnd": 695.6
+  }
+ ]
+}

@@ -1,0 +1,179 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Cinzel;src:url(assets/fonts/Cinzel-600.ttf);font-weight:600}
+@font-face{font-family:Corm;src:url(assets/fonts/Cormorant-600.ttf);font-weight:600}
+@font-face{font-family:Corm;src:url(assets/fonts/Cormorant-I500.ttf);font-weight:500;font-style:italic}
+html,body{margin:0;background:#000;overflow:hidden}
+#stage{position:relative;width:1920px;height:1080px;transform-origin:0 0}
+#gl{position:absolute;left:0;top:0}
+.hud{position:absolute;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.65),0 0 2px rgba(0,0,0,.7);font-family:Corm,serif}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(0,0,0,0) 55%,rgba(0,0,0,.35) 100%),linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,0) 34%),linear-gradient(to bottom,rgba(0,0,0,.38),rgba(0,0,0,0) 18%);pointer-events:none}
+#minimap{left:44px;top:40px;width:230px;height:150px;border:2px solid rgba(255,255,255,.75);border-radius:4px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.5);background:#2a5a8a}
+#minimap canvas{width:100%;height:100%}
+#scale{left:44px;top:198px;font:600 15px Cinzel;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+#scale i{display:block;width:70px;height:6px;border:2px solid #fff;border-top:none}
+#pop{right:56px;top:46px;font:600 25px Cinzel;letter-spacing:.06em}
+#pop small{font-size:16px;opacity:.9;margin-right:6px}
+#emp{left:44px;bottom:42px;display:flex;align-items:center;gap:18px}
+#flag{width:84px;height:84px;border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,.6)}
+#emp .a{font:600 17px Cinzel;letter-spacing:.14em;opacity:.95;text-transform:uppercase}
+#emp .b{font:600 46px Corm;line-height:1;margin:2px 0 4px}
+#emp .c{font:italic 500 25px Corm;opacity:.95}
+#year{right:56px;bottom:30px;text-align:right;font:600 112px Corm;line-height:1;letter-spacing:.01em}
+#date{right:60px;bottom:140px;font:italic 500 32px Corm;text-align:right;opacity:.95}
+#card{left:50%;bottom:50px;transform:translateX(-50%);width:880px;text-align:center}
+#card .t{font:600 40px Cinzel;letter-spacing:.14em;margin-bottom:10px}
+#card .d{font:italic 500 30px Corm;line-height:1.22}
+#inset{right:56px;top:92px;width:344px;opacity:0;text-align:center}
+#inset canvas{display:block;width:344px;height:232px;border:3px solid #fff;border-radius:3px;box-shadow:0 4px 16px rgba(0,0,0,.55)}
+#inset .cap{font:italic 500 21px Corm;margin-top:8px}
+#intro{inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(10,12,24,.38)}
+#intro .t{font:600 120px Cinzel;letter-spacing:.2em;margin-left:.2em}
+#intro .s{font:italic 500 42px Corm;margin-top:12px;letter-spacing:.06em}
+#black{position:absolute;inset:0;background:#000;pointer-events:none}
+</style>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
+<body><div id="stage">
+<canvas id="gl"></canvas><div id="vig"></div>
+<div class="hud" id="minimap"><canvas id="mm" width="460" height="300"></canvas></div><div class="hud" id="scale"><i></i><span>10 km</span></div>
+<div class="hud" id="pop"><small>≈</small><span id="popv"></span> <small>kişi yaşıyor</small></div>
+<div class="hud" id="emp"><canvas id="flag" width="168" height="168"></canvas><div><div class="a" id="empn"></div><div class="b" id="city"></div><div class="c" id="ruler"></div></div></div>
+<div class="hud" id="year"></div><div class="hud" id="date"></div>
+<div class="hud" id="card"><div class="t" id="ct"></div><div class="d" id="cd"></div></div>
+<div class="hud" id="inset"><canvas id="ic" width="688" height="464"></canvas><div class="cap" id="icap"></div></div>
+<div class="hud" id="intro"><div class="t">İSTANBUL</div><div class="s">2700 yıllık zaman atlaması</div></div><div id="black"></div>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+const Q = new URLSearchParams(location.search); const W = +(Q.get('w') || 1920), Hh = +(Q.get('h') || 1080);
+const stage = document.getElementById('stage'); stage.style.transform = `scale(${W / 1920})`; document.body.style.width = W + 'px'; document.body.style.height = Hh + 'px';
+await Promise.all(['600 20px Cinzel', '600 20px Corm', 'italic 500 20px Corm'].map(f => document.fonts.load(f, 'AaİıŞş')));
+const META = await (await fetch('/data/dem_meta.json')).json(); const CITY = await (await fetch('/data/city.json')).json();
+const [SX, SZ] = META.size_km; const ll = (lat, lon) => [(lon - META.lon0) / (META.lon1 - META.lon0) * SX - SX / 2, (META.lat1 - lat) / (META.lat1 - META.lat0) * SZ - SZ / 2];
+// ---------------------------------------------------------------- renderer + toon look
+const canvas = document.getElementById('gl'); canvas.width = 1920 * W / 1920; const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(1); renderer.setSize(W, Hh, false); canvas.style.width = '1920px'; canvas.style.height = '1080px'; renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.NoToneMapping;
+const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.004, 400);
+const SKY = new THREE.Color('#bfe0f5'); scene.background = SKY; scene.fog = new THREE.Fog('#d9ecf5', 30, 160);
+const grad = (() => { const d = new Uint8Array([120, 120, 120, 255, 175, 175, 175, 255, 225, 225, 225, 255, 255, 255, 255, 255]); const t = new THREE.DataTexture(d, 4, 1, THREE.RGBAFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+const sun = new THREE.DirectionalLight('#ffe6bf', 2.7); sun.position.set(-30, 40, 30); scene.add(sun); scene.add(new THREE.HemisphereLight('#d6ecff', '#d7b98a', 1.55));
+const INKC = new THREE.Color('#2a1a2e'); const toonCache = new Map();
+const toon = (m) => { if (!toonCache.has(m)) { if (m.name === 'Ink') toonCache.set(m, new THREE.MeshBasicMaterial({ color: INKC, side: THREE.FrontSide })); else toonCache.set(m, new THREE.MeshToonMaterial({ color: m.color.clone(), gradientMap: grad, vertexColors: m.vertexColors, emissive: m.emissive.clone(), emissiveIntensity: m.emissiveIntensity })); } return toonCache.get(m); };
+const world = (await new GLTFLoader().loadAsync('/data/world.glb')).scene; scene.add(world);
+const born = []; world.traverse(o => { if (o.isMesh) { o.material = Array.isArray(o.material) ? o.material.map(toon) : toon(o.material); } if (o.userData && o.userData.born !== undefined) { const big = ['ayasofya', 'sultanahmet', 'suleymaniye', 'yenicami', 'fatih', 'galata', 'topkapi', 'dolmabahce', 'haydarpasa', 'kizkulesi', 'rumelihisari', 'anadolu', 'column', 'hippodrome'].includes(o.name); const s0 = o.scale.clone(); if (big) s0.multiplyScalar(1.75); born.push([o, o.userData.born, s0]); } });
+const chain = world.getObjectByName('chain');
+// ---------------------------------------------------------------- the living city: instanced houses/roofs/trees that grow in on their build year
+const uYear = { value: -700 };
+const growMat = (base) => { base.onBeforeCompile = (sh) => { sh.uniforms.uYear = uYear; sh.vertexShader = 'attribute float aBorn; uniform float uYear;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n float gg = smoothstep(aBorn, aBorn + 16.0, uYear); gg = gg * (1.0 + 0.22 * sin(gg * 3.14159)); transformed *= gg;'); }; return base; };
+const buf = async (u, n) => new Float32Array(await (await fetch(u)).arrayBuffer());
+const HB = await buf('/data/houses.bin'), TB = await buf('/data/trees.bin'); const HC = CITY.hcols, TCN = CITY.tcols;
+const WALL = [['#ead9b4', '#e4cf9f'], ['#e8d0a4', '#dcc08c'], ['#efdcba', '#e6cc9c'], ['#f2e4c8', '#ead6b0'], ['#e9dfcf', '#d9cdb8'], ['#dedede', '#c9ced6']];
+const ROOF = [['#cf7a45', '#c26a3a', '#d88a50', '#b85c34'], ['#bf5a32', '#b04a2c', '#c8683c', '#a84028'], ['#c44a34', '#b83e2e', '#cc5a3a', '#a63a2a'], ['#bd4f38', '#c8603f', '#a8442f', '#d27048'], ['#a4503e', '#94463a', '#b0604a', '#8a4034'], ['#8f98a4', '#7a8490', '#9aa4b0', '#6f7a88']];
+const nH = CITY.houses; const bornA = new Float32Array(nH), bornR = new Float32Array(nH);
+const wallsG = new THREE.BoxGeometry(1, 1, 1); wallsG.translate(0, 0.5, 0);
+const roofShape = new THREE.BufferGeometry(); { const v = [-.5, 0, -.5, .5, 0, -.5, 0, .5, -.5, -.5, 0, .5, .5, 0, .5, 0, .5, .5]; const idx = [0, 2, 1, 3, 4, 5, 0, 3, 5, 0, 5, 2, 1, 2, 5, 1, 5, 4, 0, 1, 4, 0, 4, 3]; roofShape.setAttribute('position', new THREE.Float32BufferAttribute(v, 3)); roofShape.setIndex(idx); roofShape.computeVertexNormals(); }
+const wallM = growMat(new THREE.MeshToonMaterial({ color: 0xffffff, gradientMap: grad })), roofM = growMat(new THREE.MeshToonMaterial({ color: 0xffffff, gradientMap: grad, side: THREE.DoubleSide }));
+const walls = new THREE.InstancedMesh(wallsG, wallM, nH); let nRoof = 0; for (let i = 0; i < nH; i++) if (HB[i * HC + 10] < 0.5) nRoof++;
+const roofs = new THREE.InstancedMesh(roofShape, roofM, nRoof); const dummy = new THREE.Object3D(), col = new THREE.Color(); let r = 0; const bw = [], br = []; const rnd = (i) => { const s = Math.sin(i * 12.9898) * 43758.5453; return s - Math.floor(s); };
+for (let i = 0; i < nH; i++) {
+  const o = i * HC, x = HB[o], y = HB[o + 1], z = HB[o + 2], rot = HB[o + 3], fp = HB[o + 4], ht = HB[o + 5], fp2 = HB[o + 6], bo = HB[o + 7], era = HB[o + 8] | 0, tone = HB[o + 9] | 0, kind = HB[o + 10];
+  dummy.position.set(x, y - 0.002, z); dummy.rotation.set(0, rot, 0); dummy.scale.set(fp, ht, fp2); dummy.updateMatrix(); walls.setMatrixAt(i, dummy.matrix); col.set(kind > 0.5 ? ['#9fc3d9', '#b7c6d4', '#8fb0c8', '#c9d3dc'][tone] : WALL[Math.min(5, era)][tone & 1]); walls.setColorAt(i, col); bornA[i] = bo;
+  if (kind < 0.5) { dummy.position.set(x, y - 0.002 + ht, z); dummy.scale.set(fp * 1.1, ht * 0.55 + fp * 0.15, fp2 * 1.1); dummy.updateMatrix(); roofs.setMatrixAt(r, dummy.matrix); col.set(ROOF[Math.min(5, era)][tone]); roofs.setColorAt(r, col); bornR[r++] = bo; }
+}
+wallsG.setAttribute('aBorn', new THREE.InstancedBufferAttribute(bornA, 1)); roofShape.setAttribute('aBorn', new THREE.InstancedBufferAttribute(bornR.slice(0, nRoof), 1));
+walls.frustumCulled = false; roofs.frustumCulled = false; scene.add(walls, roofs);
+const nT = CITY.trees; const crownG = new THREE.IcosahedronGeometry(0.5, 0); crownG.translate(0, 0.95, 0); const coneG = new THREE.ConeGeometry(0.28, 1.5, 6); coneG.translate(0, 0.75, 0);
+const treeM = new THREE.MeshToonMaterial({ color: 0xffffff, gradientMap: grad }); const treeM2 = new THREE.MeshToonMaterial({ color: 0xffffff, gradientMap: grad });
+let nCone = 0, nBall = 0; for (let i = 0; i < nT; i++) (TB[i * TCN + 4] > 1.5 ? nCone++ : nBall++);
+const balls = new THREE.InstancedMesh(crownG, treeM, nBall), cones = new THREE.InstancedMesh(coneG, treeM2, nCone); let bi = 0, ci = 0; const GREEN = ['#6fae4c', '#5f9e44', '#7fba58', '#4f8f3e'];
+for (let i = 0; i < nT; i++) { const o = i * TCN; dummy.position.set(TB[o], TB[o + 1] - 0.001, TB[o + 2]); dummy.rotation.set(0, i, 0); const s = TB[o + 3]; dummy.scale.set(s, s * (TB[o + 4] > 1.5 ? 1.7 : 1.1), s); dummy.updateMatrix(); col.set(GREEN[(rnd(i) * 4) | 0]); if (TB[o + 4] > 1.5) { cones.setMatrixAt(ci, dummy.matrix); cones.setColorAt(ci++, col.set('#3f7a3a')); } else { balls.setMatrixAt(bi, dummy.matrix); balls.setColorAt(bi++, col); } }
+balls.frustumCulled = false; cones.frustumCulled = false; scene.add(balls, cones);
+// ---------------------------------------------------------------- water shimmer, ships, markers, animation actors
+const waterM = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, uniforms: { uT: { value: 0 } }, vertexShader: 'varying vec3 vP; void main(){ vec4 w = modelMatrix*vec4(position,1.0); vP = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }', fragmentShader: 'uniform float uT; varying vec3 vP; void main(){ float a = sin(vP.x*7.0+uT*0.8)*sin(vP.z*6.0-uT*0.6)+sin((vP.x+vP.z)*11.0+uT*1.3)*0.6; a = smoothstep(1.05,1.5,a); gl_FragColor = vec4(1.0,1.0,1.0,a*0.22); }' });
+const ocean = new THREE.Mesh(new THREE.PlaneGeometry(900, 900), new THREE.MeshBasicMaterial({ color: '#2a76ae', fog: true })); ocean.rotation.x = -Math.PI / 2; ocean.position.y = -0.03; scene.add(ocean);
+const water = new THREE.Mesh(new THREE.PlaneGeometry(SX, SZ), waterM); water.rotation.x = -Math.PI / 2; water.position.y = 0.00015; scene.add(water);
+const hull = new THREE.BoxGeometry(0.03, 0.006, 0.01); hull.translate(0, 0.004, 0); const sailG = new THREE.PlaneGeometry(0.016, 0.02); sailG.translate(0, 0.016, 0);
+const mkShips = (n, c1, c2) => { const a = new THREE.InstancedMesh(hull, new THREE.MeshToonMaterial({ color: c1, gradientMap: grad }), n), b = new THREE.InstancedMesh(sailG, new THREE.MeshToonMaterial({ color: c2, gradientMap: grad, side: THREE.DoubleSide }), n); a.frustumCulled = b.frustumCulled = false; scene.add(a, b); return { a, b, n }; };
+const SH = { amb: mkShips(70, '#7a4a2a', '#f4efe2'), act: mkShips(90, '#6a3f22', '#f4efe2'), fl: mkShips(36, '#3a3a40', '#c93a2e') };
+const setShip = (s, i, x, z, ang, sc = 1, vis = true) => { dummy.position.set(x, 0.0006, z); dummy.rotation.set(0, ang, 0); dummy.scale.setScalar(vis ? sc : 0); dummy.updateMatrix(); s.a.setMatrixAt(i, dummy.matrix); s.b.setMatrixAt(i, dummy.matrix); };
+const BOS = [[41.2330, 29.1000], [41.1800, 29.0700], [41.1100, 29.0550], [41.0600, 29.0430], [41.0300, 29.0300], [41.0000, 28.9950], [40.9600, 28.9500]].map(p => ll(...p));
+const polyAt = (P, u) => { const n = P.length - 1; const k = Math.min(n - 1, Math.floor(u * n)), f = u * n - k; return [P[k][0] + (P[k + 1][0] - P[k][0]) * f, P[k][1] + (P[k + 1][1] - P[k][1]) * f, Math.atan2(P[k + 1][0] - P[k][0], P[k + 1][1] - P[k][1])]; };
+const actors = new THREE.InstancedMesh(new THREE.ConeGeometry(0.011, 0.03, 5), new THREE.MeshToonMaterial({ color: 0xffffff, gradientMap: grad }), 500); actors.frustumCulled = false; scene.add(actors);
+const flames = new THREE.InstancedMesh(new THREE.ConeGeometry(0.008, 0.03, 6), new THREE.MeshBasicMaterial({ color: 0xff8a2a }), 90); flames.frustumCulled = false; scene.add(flames);
+const marker = new THREE.Group(); const ringM = new THREE.MeshBasicMaterial({ color: 0xffd36a, transparent: true, opacity: 0.0, depthWrite: false }); const ring = new THREE.Mesh(new THREE.TorusGeometry(0.06, 0.004, 6, 40), ringM); ring.rotation.x = Math.PI / 2; const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.5, 8, 1, true), ringM); beam.position.y = 0.25; marker.add(ring, beam); scene.add(marker);
+const SZ0 = (x, z) => 0; let hGrid = null;
+// ---------------------------------------------------------------- HUD helpers
+const $ = (id) => document.getElementById(id); const mmC = $('mm'), mmx = mmC.getContext('2d'); const mmImg = new Image(); await new Promise(r => { mmImg.onload = r; mmImg.src = '/data/minimap.png'; });
+function flag(key) { const c = $('flag'), g = c.getContext('2d'); g.clearRect(0, 0, 168, 168); g.save(); g.beginPath(); g.arc(84, 84, 80, 0, 7); g.clip(); const star = (x, y, r, col) => { g.fillStyle = col; g.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.4 : r; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } g.fill(); };
+  const crescent = (x, y, r) => { g.fillStyle = '#fff'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.fillStyle = bg; g.beginPath(); g.arc(x + r * 0.35, y, r * 0.8, 0, 7); g.fill(); }; let bg = '#c8202f';
+  const F = { greek: () => { bg = '#1f5fa8'; g.fillStyle = bg; g.fillRect(0, 0, 168, 168); g.fillStyle = '#fff'; for (let i = 0; i < 5; i++) g.fillRect(0, 20 + i * 32, 168, 14); g.fillStyle = bg; g.fillRect(0, 0, 80, 100); g.fillStyle = '#fff'; g.fillRect(34, 0, 12, 100); g.fillRect(0, 44, 80, 12); },
+    persia: () => { bg = '#2a6f55'; g.fillStyle = bg; g.fillRect(0, 0, 168, 168); g.fillStyle = '#f0c040'; g.beginPath(); g.arc(84, 84, 40, 0, 7); g.fill(); g.fillStyle = bg; g.beginPath(); g.arc(84, 84, 22, 0, 7); g.fill(); g.fillStyle = '#f0c040'; g.fillRect(14, 78, 140, 12); },
+    rome: () => { bg = '#b3202a'; g.fillStyle = bg; g.fillRect(0, 0, 168, 168); g.fillStyle = '#f0c040'; g.fillRect(24, 100, 120, 14); g.beginPath(); g.moveTo(84, 36); g.lineTo(128, 96); g.lineTo(40, 96); g.fill(); g.fillStyle = bg; g.fillRect(70, 66, 28, 30); },
+    byz: () => { bg = '#5b2a86'; g.fillStyle = bg; g.fillRect(0, 0, 168, 168); g.fillStyle = '#f0c040'; g.fillRect(74, 26, 20, 116); g.fillRect(26, 74, 116, 20); g.fillStyle = bg; g.fillRect(80, 32, 8, 104); g.fillRect(32, 80, 104, 8); },
+    latin: () => { bg = '#1f3f8a'; g.fillStyle = bg; g.fillRect(0, 0, 168, 168); g.fillStyle = '#f0c040'; g.fillRect(74, 20, 20, 128); g.fillRect(36, 56, 96, 20); },
+    ottoman: () => { bg = '#c8202f'; g.fillStyle = bg; g.fillRect(0, 0, 168, 168); crescent(76, 84, 40); star(110, 84, 20, '#fff'); },
+    turkey: () => { bg = '#e30a17'; g.fillStyle = bg; g.fillRect(0, 0, 168, 168); crescent(70, 84, 40); star(108, 84, 20, '#fff'); } }; (F[key] || F.ottoman)(); g.restore(); g.lineWidth = 6; g.strokeStyle = 'rgba(255,255,255,.9)'; g.beginPath(); g.arc(84, 84, 80, 0, 7); g.stroke(); }
+const art = {}; { const c = $('ic'), g = c.getContext('2d');
+  const sky = (a, b) => { const q = g.createLinearGradient(0, 0, 0, 464); q.addColorStop(0, a); q.addColorStop(1, b); g.fillStyle = q; g.fillRect(0, 0, 688, 464); };
+  const sea = (y) => { g.fillStyle = '#2a6aa8'; g.fillRect(0, y, 688, 464 - y); g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 4; for (let i = 0; i < 9; i++) { g.beginPath(); g.moveTo(20 + i * 80, y + 26 + (i % 3) * 22); g.quadraticCurveTo(50 + i * 80, y + 14 + (i % 3) * 22, 80 + i * 80, y + 26 + (i % 3) * 22); g.stroke(); } };
+  const ink = '#2a1a2e'; const fill = (col) => { g.fillStyle = col; g.fill(); g.lineWidth = 6; g.strokeStyle = ink; g.stroke(); };
+  const ship = (x, y, s, col = '#7a4a2a', sail = '#f4efe2') => { g.save(); g.translate(x, y); g.scale(s, s); g.beginPath(); g.moveTo(-90, 0); g.lineTo(90, 0); g.lineTo(60, 34); g.lineTo(-62, 34); g.closePath(); fill(col); g.beginPath(); g.moveTo(0, -4); g.lineTo(0, -130); g.lineWidth = 7; g.strokeStyle = ink; g.stroke(); g.beginPath(); g.moveTo(6, -126); g.quadraticCurveTo(70, -80, 66, -14); g.lineTo(6, -14); g.closePath(); fill(sail); g.restore(); };
+  const dome = (x, y, s, wall = '#e9c9a0', cap = '#8c9bb5', mins = 2) => { g.save(); g.translate(x, y); g.scale(s, s); g.beginPath(); g.rect(-110, -60, 220, 60); fill(wall); g.beginPath(); g.arc(0, -60, 70, Math.PI, 0); fill(cap); for (const sx of [-1, 1]) { g.beginPath(); g.arc(sx * 98, -50, 34, Math.PI, 0); fill(cap); } for (let k = 0; k < mins; k++) { const mx = (k % 2 ? 1 : -1) * (150 + (k >> 1) * 36); g.beginPath(); g.rect(mx - 9, -190, 18, 190); fill('#f4efe2'); g.beginPath(); g.moveTo(mx - 12, -190); g.lineTo(mx, -228); g.lineTo(mx + 12, -190); g.closePath(); fill('#7d8fae'); } g.restore(); };
+  art.ship = () => { sky('#9fd0ef', '#f6e3b8'); sea(300); ship(250, 280, 1.1); ship(500, 300, 0.8, '#6a3f22'); }; art.bridge = () => { sky('#9fd0ef', '#f6e3b8'); sea(330); for (let i = 0; i < 9; i++) { ship(60 + i * 70, 340 + (i % 2) * 4, 0.28, '#7a4a2a'); } g.fillStyle = '#c9a36a'; g.fillRect(20, 322, 660, 14); };
+  art.stadium = () => { sky('#9fd0ef', '#f6e3b8'); g.fillStyle = '#c9b79a'; g.beginPath(); g.ellipse(344, 330, 300, 110, 0, 0, 7); fill('#c9b79a'); g.beginPath(); g.ellipse(344, 330, 240, 70, 0, 0, 7); fill('#e6d3a0'); g.beginPath(); g.rect(320, 250, 16, 120); fill('#d6a86a'); };
+  art.column = () => { sky('#9fd0ef', '#f6e3b8'); g.beginPath(); g.rect(310, 70, 68, 330); fill('#c9b79a'); g.beginPath(); g.rect(290, 380, 108, 40); fill('#a8977a'); g.beginPath(); g.rect(296, 40, 96, 34); fill('#a8977a'); g.fillStyle = '#e8a14a'; g.beginPath(); g.arc(344, 28, 26, 0, 7); fill('#f0c040'); };
+  art.wall = () => { sky('#9fd0ef', '#f6e3b8'); for (let k = 0; k < 4; k++) { g.beginPath(); g.rect(60 + k * 160, 130, 56, 250); fill('#c9b79a'); } g.beginPath(); g.rect(0, 220, 688, 160); fill('#e9c9a0'); for (let k = 0; k < 8; k++) { g.beginPath(); g.rect(26 + k * 86, 200, 30, 20); fill('#c9b79a'); } };
+  art.dome = () => { sky('#9fd0ef', '#f6e3b8'); dome(344, 380, 1.5, '#e9a67a', '#8c9bb5', 0); }; art.mosque = () => { sky('#9fd0ef', '#f6e3b8'); dome(344, 400, 1.15, '#e9d6b0', '#7a8fb0', 4); };
+  art.fire = () => { sky('#3a2a50', '#d8703a'); for (let k = 0; k < 7; k++) { const x = 70 + k * 90; g.beginPath(); g.moveTo(x - 36, 420); g.quadraticCurveTo(x - 50, 300, x, 200 - (k % 3) * 40); g.quadraticCurveTo(x + 50, 300, x + 36, 420); g.closePath(); fill(k % 2 ? '#f08a2a' : '#f0c040'); } };
+  art.armies = () => { sky('#9fd0ef', '#e6d3a0'); for (let k = 0; k < 28; k++) { const x = 40 + (k % 14) * 46, y = 300 + Math.floor(k / 14) * 80; g.beginPath(); g.moveTo(x, y - 60); g.lineTo(x + 8, y); g.lineTo(x - 8, y); g.closePath(); fill(k % 3 ? '#b3202a' : '#1f3f8a'); g.beginPath(); g.arc(x, y - 70, 12, 0, 7); fill('#f4e6c8'); g.beginPath(); g.moveTo(x + 18, y - 90); g.lineTo(x + 18, y + 6); g.lineWidth = 5; g.strokeStyle = ink; g.stroke(); } };
+  art.tower = () => { sky('#9fd0ef', '#f6e3b8'); g.beginPath(); g.rect(310, 120, 70, 280); fill('#c9b79a'); g.beginPath(); g.rect(296, 90, 98, 40); fill('#6e5a4a'); g.beginPath(); g.moveTo(290, 92); g.lineTo(344, 20); g.lineTo(398, 92); g.closePath(); fill('#7d8fae'); };
+  art.palace = () => { sky('#9fd0ef', '#f6e3b8'); g.beginPath(); g.rect(60, 270, 568, 130); fill('#f1e3cc'); for (let k = 0; k < 9; k++) { g.beginPath(); g.rect(90 + k * 62, 300, 26, 50); fill('#8c9bb5'); } g.beginPath(); g.rect(290, 200, 108, 80); fill('#f1e3cc'); g.beginPath(); g.arc(344, 200, 46, Math.PI, 0); fill('#8c9bb5'); };
+  art.flag = () => { sky('#e9c9a0', '#f6e3b8'); g.beginPath(); g.rect(86, 100, 516, 258); fill('#e30a17'); g.fillStyle = '#fff'; g.beginPath(); g.arc(300, 229, 74, 0, 7); g.fill(); g.fillStyle = '#e30a17'; g.beginPath(); g.arc(322, 229, 60, 0, 7); g.fill(); g.fillStyle = '#fff'; g.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? 14 : 36; g.lineTo(398 + Math.cos(a) * rr, 229 + Math.sin(a) * rr); } g.fill(); };
+  art.plane = () => { sky('#7fb6e8', '#e8f2fb'); g.save(); g.translate(344, 230); g.rotate(-0.25); g.beginPath(); g.ellipse(0, 0, 220, 36, 0, 0, 7); fill('#f4f4f4'); g.beginPath(); g.moveTo(-20, 0); g.lineTo(60, -150); g.lineTo(110, -150); g.lineTo(60, 0); g.closePath(); fill('#dde3ea'); g.beginPath(); g.moveTo(-20, 0); g.lineTo(40, 140); g.lineTo(90, 140); g.lineTo(60, 0); g.closePath(); fill('#dde3ea'); g.restore(); };
+  window.drawInset = (k) => { g.clearRect(0, 0, 688, 464); (art[k] || art.dome)(); }; }
+let lastFlag = '', lastInset = '';
+// ---------------------------------------------------------------- per-frame animation actors (deterministic from the frame data)
+const HX = (i) => { const s = Math.sin(i * 91.7 + 3.1) * 43758.5; return s - Math.floor(s); };
+function animate(a, year) {
+  let ai = 0; const col = new THREE.Color(); const put = (i, x, z, y = 0.003, s = 1, c = '#fff') => { dummy.position.set(x, y, z); dummy.rotation.set(0, 0, 0); dummy.scale.setScalar(s); dummy.updateMatrix(); actors.setMatrixAt(i, dummy.matrix); actors.setColorAt(i, col.set(c)); };
+  let fi = 0, si = 0, fli = 0;
+  const hide = (s, from) => { for (let i = from; i < s.n; i++) setShip(s, i, 0, 0, 0, 0, false); };
+  if (a && a.key === 'ships_sail') { const P = [ll(40.99, 28.88), ll(41.0, 28.93), ll(41.012, 28.972)]; for (let i = 0; i < 8; i++) { const u = clamp01((a.u * 1.2 - i * 0.06)); const [x, z, an] = polyAt(P, u); setShip(SH.act, si++, x + (i % 3) * 0.04, z + 0.05 * (i % 2), an, 3.2); } }
+  if (a && a.key === 'boat_bridge') { const A = ll(41.0495, 29.0300), B = ll(41.0530, 29.0420); const n = Math.min(40, Math.floor(8 + a.u * 60)); for (let i = 0; i < 40; i++) { const u = i / 39; setShip(SH.act, si++, A[0] + (B[0] - A[0]) * u, A[1] + (B[1] - A[1]) * u, 0.6, 2.2, i < n); } const k = Math.floor(a.u * 40); for (let i = 0; i < 60; i++) { const u = clamp01(a.u * 1.4 - 0.25 + i * 0.002), x = A[0] + (B[0] - A[0]) * clamp01(a.u * 1.2 - i * 0.01), z = A[1] + (B[1] - A[1]) * clamp01(a.u * 1.2 - i * 0.01); put(ai++, x, z - 0.012 + 0.002 * (i % 4), 0.004, 1, '#c8a030'); } }
+  if (a && a.key === 'ships_overland') { const P = [ll(41.0400, 29.0000), ll(41.0360, 28.9930), ll(41.0300, 28.9850), ll(41.0270, 28.9780), ll(41.0265, 28.9680)]; for (let i = 0; i < 70; i++) { const u = clamp01(a.u * 1.35 - i * 0.012); const [x, z, an] = polyAt(P, u); const hh = hgtAt(x, z); dummy.position.set(x + 0.01 * ((i % 5) - 2), hh + 0.001, z + 0.008 * ((i % 3) - 1)); dummy.rotation.set(0, an, 0); dummy.scale.setScalar(2.8); dummy.updateMatrix(); SH.act.a.setMatrixAt(i, dummy.matrix); SH.act.b.setMatrixAt(i, dummy.matrix); } si = 70; }
+  if (a && (a.key === 'fleet')) { for (let i = 0; i < 36; i++) { const u = clamp01(a.u * 1.1 - HX(i) * 0.3); const A = ll(40.97, 28.78 + HX(i + 4) * 0.02), B = ll(41.0, 28.965); setShip(SH.fl, fli++, A[0] + (B[0] - A[0]) * u + (HX(i) - .5) * 0.5, A[1] + (B[1] - A[1]) * u + (HX(i + 9) - .5) * 0.6, 1.2, 3.0); } }
+  if (a && (a.key === 'armies_walls' || a.key === 'armies_fire')) { const W0 = ll(41.0210, 28.9265), W1 = ll(41.0420, 28.9400); for (let i = 0; i < 300; i++) { const v = HX(i), side = (v * 3) % 1, off = 0.18 + 0.5 * HX(i + 7), u = clamp01(a.u * 0.9 * (0.7 + 0.5 * HX(i + 3))); const bx = W0[0] + (W1[0] - W0[0]) * side - off * (1 - u) - 0.03, bz = W0[1] + (W1[1] - W0[1]) * side; put(ai++, bx, bz, hgtAt(bx, bz) + 0.012, 1.4, i % 4 ? '#c93a2e' : '#1f3f8a'); } }
+  if (a && (a.key === 'fire' || a.key === 'armies_fire')) { const n = a.key === 'fire' ? 60 : 40; const c = a.key === 'fire' ? [a.x, a.z] : ll(41.012, 28.970); for (let i = 0; i < n; i++) { const fl = 0.55 + 0.45 * Math.sin(a.t * 9 + i * 1.7), x = c[0] + (HX(i) - .5) * 0.9, z = c[1] + (HX(i + 5) - .5) * 0.7; dummy.position.set(x, hgtAt(x, z) + 0.01, z); dummy.rotation.set(0, 0, 0); dummy.scale.set(1.2, (0.9 + fl) * Math.min(1, a.t / 2.5), 1.2); dummy.updateMatrix(); flames.setMatrixAt(fli = i, dummy.matrix); } for (let i = n; i < 90; i++) { dummy.scale.setScalar(0); dummy.updateMatrix(); flames.setMatrixAt(i, dummy.matrix); } } else for (let i = 0; i < 90; i++) { dummy.scale.setScalar(0); dummy.updateMatrix(); flames.setMatrixAt(i, dummy.matrix); }
+  for (let i = ai; i < 500; i++) { dummy.scale.setScalar(0); dummy.updateMatrix(); actors.setMatrixAt(i, dummy.matrix); }
+  actors.instanceMatrix.needsUpdate = true; if (actors.instanceColor) actors.instanceColor.needsUpdate = true; flames.instanceMatrix.needsUpdate = true;
+  if (!(a && (a.key === 'ships_sail' || a.key === 'boat_bridge' || a.key === 'ships_overland'))) hide(SH.act, 0); else if (a.key !== 'ships_overland') hide(SH.act, si);
+  if (!(a && a.key === 'fleet')) hide(SH.fl, 0); else hide(SH.fl, fli);
+  SH.act.a.instanceMatrix.needsUpdate = SH.act.b.instanceMatrix.needsUpdate = SH.fl.a.instanceMatrix.needsUpdate = SH.fl.b.instanceMatrix.needsUpdate = true;
+}
+const clamp01 = (x) => Math.min(1, Math.max(0, x));
+async function loadH() { const r = await (await fetch('/data/terrain.f32')).arrayBuffer(); return new Float32Array(r); }
+const TH = await loadH(), HW = CITY.gw, HH = CITY.gh; function hgtAt(x, z) { const fx = (x + SX / 2) / SX * (HW - 1), fz = (z + SZ / 2) / SZ * (HH - 1); const i0 = Math.max(0, Math.min(HW - 2, Math.floor(fx))), j0 = Math.max(0, Math.min(HH - 2, Math.floor(fz))), tx = fx - i0, tz = fz - j0; return TH[j0 * HW + i0] * (1 - tx) * (1 - tz) + TH[j0 * HW + i0 + 1] * tx * (1 - tz) + TH[(j0 + 1) * HW + i0] * (1 - tx) * tz + TH[(j0 + 1) * HW + i0 + 1] * tx * tz; }
+// ambient ships on the Bosphorus grow with the era
+function ambient(t, year) { const n = Math.min(70, Math.floor(year < 0 ? 2 : year < 1453 ? 4 + (year + 700) / 80 : year < 1850 ? 14 + (year - 1453) / 20 : 34 + (year - 1850) / 5)); for (let i = 0; i < 70; i++) { const dir = i % 2 ? 1 : -1; const u = (((t * 0.012 * (0.6 + HX(i)) * dir + HX(i + 2)) % 1) + 1) % 1; const [x, z, an] = polyAt(BOS, u); const off = (HX(i + 6) - 0.5) * 0.05; setShip(SH.amb, i, x + off, z, an + (dir < 0 ? Math.PI : 0), year > 1850 ? 2.3 : 2.0, i < n); } for (const s of [SH.amb]) { s.a.instanceMatrix.needsUpdate = s.b.instanceMatrix.needsUpdate = true; } }
+// ---------------------------------------------------------------- the frame
+window.renderFrame = (f) => {
+  uYear.value = f.year; waterM.uniforms.uT.value = f.t;
+  for (const [o, b, s0] of born) { const k = clamp01((f.year - (b - 9)) / 7); const g = k * (1 + 0.2 * Math.sin(k * Math.PI)); o.visible = k > 0.001; o.scale.copy(s0).multiplyScalar(g || 0.0001); }
+  if (chain) chain.visible = !!f.props.chain;
+  ambient(f.t, f.year); animate(f.anim, f.year);
+  camera.fov = f.cam.fov; camera.near = Math.max(0.004, f.cam.d * 0.012); camera.updateProjectionMatrix(); camera.position.set(...f.cam.pos); camera.lookAt(...f.cam.look);
+  const d = f.cam.d; scene.fog.near = d * 1.8; scene.fog.far = d * 7;
+  if (f.marker) { const m = f.marker; marker.visible = true; marker.position.set(m.x, hgtAt(m.x, m.z) + 0.004, m.z); const pulse = 1 + 0.25 * Math.sin(f.t * 3); ring.scale.setScalar(Math.max(0.4, d * 0.25) * pulse); beam.scale.set(Math.max(0.4, d * 0.25), Math.max(0.4, d * 0.5), Math.max(0.4, d * 0.25)); beam.position.y = 0.25 * Math.max(0.4, d * 0.5); ringM.opacity = 0.7 * m.a * (m.u < 0.35 ? 1 : 0.35); } else { marker.visible = false; }
+  renderer.render(scene, camera);
+  // HUD
+  $('year').textContent = f.yl; $('date').textContent = f.date; $('popv').textContent = f.pop >= 1e6 ? (f.pop / 1e6).toFixed(1).replace('.', ',') + ' milyon' : Math.round(f.pop / 1000) * 1000 >= 1000 ? Math.round(f.pop / (f.pop > 20000 ? 1000 : 100) * (f.pop > 20000 ? 1000 : 100)).toLocaleString('tr-TR') : String(f.pop);
+  $('empn').textContent = f.empire; $('city').textContent = f.city; $('ruler').textContent = f.ruler; $('ruler').style.opacity = f.rulerA; if (lastFlag !== f.flag) { flag(f.flag); lastFlag = f.flag; }
+  const c = f.card; $('card').style.opacity = c ? c.a : 0; if (c) { $('ct').textContent = c.title; $('cd').textContent = c.desc; } $('inset').style.opacity = c && c.inset !== 'none' ? c.a : 0; if (c && c.inset !== lastInset) { window.drawInset(c.inset); $('icap').textContent = c.cap; lastInset = c.inset; }
+  $('intro').style.opacity = f.intro; $('black').style.opacity = 1 - f.fade;
+  // minimap: land image + view footprint + marker
+  mmx.clearRect(0, 0, 460, 300); mmx.drawImage(mmImg, 0, 0, 460, 300); const px = (x) => (x + SX / 2) / SX * 460, pz = (z) => (z + SZ / 2) / SZ * 300; mmx.strokeStyle = 'rgba(255,255,255,.85)'; mmx.lineWidth = 3; const fw = Math.max(5, f.cam.d * 1.1 / SX * 460), fh = Math.max(4, f.cam.d * 0.7 / SZ * 300); mmx.strokeRect(px(f.map.x) - fw / 2, pz(f.map.z) - fh / 2, fw, fh);
+  if (f.marker) { mmx.fillStyle = '#ff4a3a'; mmx.beginPath(); mmx.arc(px(f.marker.x), pz(f.marker.z), 6, 0, 7); mmx.fill(); mmx.strokeStyle = '#fff'; mmx.lineWidth = 2; mmx.stroke(); }
+};
+window.ready = true;
+</script>
